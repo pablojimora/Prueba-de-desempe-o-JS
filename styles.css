@@ -253,3 +253,41 @@ main{
     cursor: pointer;
     margin-top: 20px;
 }
+/* ESTILOS PARA LA TABLA DE ENROLLMENTS */
+.imglist{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.enrollments-table {
+    width: 90%;
+    margin: 30px auto;
+    background-color: var(--backgrounds);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.enrollments-table th,
+.enrollments-table td {
+    padding: 14px;
+    border-bottom: 1px solid var(--borders);
+    text-align: left;
+    font-size: 15px;
+}
+
+.enrollments-table th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.enrollments-table tr:last-child td {
+    border-bottom: none;
+}
+
+.events-list tr:hover {
+    background-color: var(--secondary-color);
+}

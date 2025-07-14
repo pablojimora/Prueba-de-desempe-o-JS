@@ -327,3 +327,76 @@ function addUser() {
         }
     });
 }
+
+//Inscribirse a un evento
+document.getElementById("content").addEventListener("click", async function (event) {
+
+
+
+    if (event.target.matches('button[class="enroll-event-btn"]')) {
+        const userId = Number(localStorage.getItem("userId"));
+        const eventId = (event.target.parentElement.querySelector("p").textContent.split(": ")[1]);
+
+
+        try {
+            const existingEnrollments = await get(urlEnrollments);
+            const isAlreadyEnrolled = existingEnrollments.some(enroll =>
+                enroll.userId === userId && enroll.eventId === eventId
+            );
+
+            if (isAlreadyEnrolled) {
+                alert("Ya estás inscrito en este evento.");
+                return;
+            }
+
+            const newEnrollment = {
+                userId,
+                eventId
+            };
+
+            await post(urlEnrollments, newEnrollment);
+            alert("Inscripción realizada correctamente");
+        } catch (error) {
+            alert("Error al inscribirse.");
+            console.error("Error al inscribirse:", error);
+        }
+    }
+});
+
+async function showEventsenrolled() {
+    const userId = localStorage.getItem("userId");
+
+    try {
+        const enrollments = await get(urlEnrollments);
+
+        const userEnrollments = enrollments.filter(enroll => enroll.userId === Number(userId));
+
+        const events = await get(urlEvents);
+
+        const enrolledEvents = events.filter(event =>
+            userEnrollments.some(enroll => enroll.eventId === event.id)
+        );
+
+        await fetch(routes['/enrollments'])
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("content").innerHTML = html;
+
+                const tableBody = document.querySelector(".events-list");
+
+                enrolledEvents.forEach(event => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td><i class="fa-solid fa-user"></i></td>
+                        <td>${event.name}</td>
+                        <td>${event.description}</td>
+                        <td>${event.date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+
+    } catch (error) {
+        console.error("Error al cargar inscripciones:", error);
+    }
+}
