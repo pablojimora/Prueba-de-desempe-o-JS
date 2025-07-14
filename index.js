@@ -360,6 +360,7 @@ document.getElementById("content").addEventListener("click", async function (eve
             alert("Error al inscribirse.");
             console.error("Error al inscribirse:", error);
         }
+        navigate('/enrollments')
     }
 });
 
