@@ -2,6 +2,7 @@ import { get, post, update, deletes } from './services.js';
 
 const urlUsers = 'http://localhost:3000/users';
 const urlEvents = 'http://localhost:3000/events';
+const urlEnrollments = 'http://localhost:3000/enrollments';
 
 const routes = {
     '/login': './app/login.html',
@@ -9,6 +10,7 @@ const routes = {
     '/edit': './app/editEvent.html',
     '/events': './app/events.html',
     '/register': './app/register.html',
+    '/enrollments': './app/enrollments.html',
 }
 
 // Esta función verifica si el usuario está autenticado
@@ -29,6 +31,10 @@ async function navigate(pathname) {
     // Verifica si el usuario está autenticado para permitir la entrada a las vistas
     if (!isAuth() && pathname !== '/login' && pathname !== '/register') {
         pathname = '/login';
+    }
+    if (isAuth() && (pathname === '/login' || pathname === '/register')) {
+        alert("Ya estás autenticado, no puedes acceder a esta página");
+        pathname = '/events';
     }
     if (!isAdmin()) {
         if (pathname === '/create' || pathname === '/edit') {
@@ -56,6 +62,9 @@ async function navigate(pathname) {
     }
     if (pathname === '/register') {
         addUser();
+    }
+    if (pathname === '/enrollments') {
+        showEventsenrolled();
     }
 
 };
@@ -99,6 +108,9 @@ function setupLoginForm() {
                     alert("Usuario o contraseña incorrectas");
                     return;
                 }
+                // Si el usuario y la contraseña son correctos, se guarda la información en localStorage
+                localStorage.setItem("userId", usuario.id);
+
                 if (usuario.role === "admin") {
                     localStorage.setItem("role", "true");
                 } else {
@@ -134,7 +146,7 @@ function showEvents() {
             eventElement.className = "event";
             eventElement.innerHTML = `
                 <div class="event-info">
-                <img class="profile-photo" src="./images/e926f691a012af425ff39d25b0ca54f0223c82cf.jpg" alt="">
+                <img class="profile-photo" src="images/34670fc26fbfe493b602b742a1d42ff29d9d3d3c.jpg" alt="">
                 <p style= display:none >ID: ${event.id}</p>
                 <p>Nombre: ${event.name}</p>
                 <p>Descripcion: ${event.description}</p>
@@ -142,6 +154,7 @@ function showEvents() {
                 <p>Fecha:${event.date}</p>
                 <button class="edit-event-btn">Editar</button>
                 <button class="delete-event-btn" >Borrar</button>
+                <button class="enroll-event-btn">Inscribirse</button>
                 </div>
             `;
             containerEvents.appendChild(eventElement);
@@ -152,6 +165,10 @@ function showEvents() {
                 const deleteButtons = document.querySelectorAll('.delete-event-btn');
                 editButtons.forEach(button => button.style.display = 'none');
                 deleteButtons.forEach(button => button.style.display = 'none');
+            }
+            if (isAdmin()) {
+                const enrollButtons = document.querySelectorAll('.enroll-event-btn');
+                enrollButtons.forEach(button => button.style.display = 'none');
             }
         });
     }).catch(error => {

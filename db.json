@@ -36,6 +36,54 @@
       "description": "Fiesta grande",
       "capacity": "50",
       "date": "30/07/2025"
+    },
+    {
+      "id": "2cb4",
+      "name": "evento 2",
+      "description": "ddddd",
+      "capacity": "ddd",
+      "date": "dddd"
+    },
+    {
+      "id": "230d",
+      "name": "evento 3",
+      "description": "3333",
+      "capacity": "3333",
+      "date": "3333"
+    },
+    {
+      "id": "7dd6",
+      "name": "evento 4",
+      "description": "4444",
+      "capacity": "444",
+      "date": "444"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "1",
+      "userId": "7984",
+      "eventId": "46d4"
+    },
+    {
+      "id": "7ad2",
+      "userId": "7984",
+      "eventId": "46d4"
+    },
+    {
+      "id": "be1e",
+      "userId": 7984,
+      "eventId": null
+    },
+    {
+      "id": "2532",
+      "userId": 7984,
+      "eventId": null
+    },
+    {
+      "id": "5a8a",
+      "userId": 7984,
+      "eventId": null
     }
   ]
 }
