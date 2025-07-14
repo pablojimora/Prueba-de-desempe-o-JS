@@ -1,0 +1,41 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Nombre Completo",
+      "email": "correo@ejemplo.com",
+      "role": "admin",
+      "password": "12345678"
+    },
+    {
+      "id": "58f5",
+      "name": "Pedro",
+      "email": "pedro@gmail.com",
+      "role": "admin",
+      "password": "1234"
+    },
+    {
+      "id": "f7fb",
+      "name": "Felipe",
+      "email": "felipe@gmail.com",
+      "role": "user",
+      "password": "1234"
+    },
+    {
+      "id": "7984",
+      "name": "Pablo",
+      "email": "pablojimora@gmail.com",
+      "password": "1234",
+      "role": "user"
+    }
+  ],
+  "events": [
+    {
+      "id": "46d4",
+      "name": "Gran remate",
+      "description": "Fiesta grande",
+      "capacity": "50",
+      "date": "30/07/2025"
+    }
+  ]
+}
